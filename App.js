@@ -22,6 +22,7 @@ import store from './src/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
+import SignupScreen from './src/screens/SignupScreen';
 
 const App = () => {
 
@@ -41,7 +42,8 @@ const App = () => {
         >
           <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.primary }} />
           <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            <Navigator />
+            {/* <Navigator /> */}
+            <SignupScreen />
           </SafeAreaView>
         </PersistGate>
       </Provider>
