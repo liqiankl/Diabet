@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import AuthNavigation from './AuthNavigation'
 import HomeNavigator from './HomeNavigation';
 const RootNavigator = () => {
-    const isLoggnied = true
+    const isLoggnied = false
     return (
         <View style={{ flex: 1, backgroundColor: 'green' }} >
             {!isLoggnied ?
