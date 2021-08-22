@@ -29,6 +29,7 @@ const DrawerNavigator = () => {
                 initialRouteName="Home"
                 name="Home"
                 component={HomeStackNavigator}
+                options={{ headerShown: false }}
             />
 
         </Drawer.Navigator>
