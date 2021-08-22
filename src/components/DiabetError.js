@@ -9,7 +9,9 @@ const DiabetError = ({ errorValue }) => (
 
 const styles = StyleSheet.create({
     container: {
-        marginLeft: 0,
+        paddingLeft: 10,
+        marginLeft: 10,
+        paddingBottom: 20
     },
     errorText: {
         color: '#db4344',

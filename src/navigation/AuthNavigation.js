@@ -19,6 +19,7 @@ const AuthNavigation = () => {
             <Stack.Screen
                 name="SignupScreen"
                 component={SignupScreen}
+                options={{ headerShown: false }}
             />
 
             <Stack.Screen

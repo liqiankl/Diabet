@@ -24,7 +24,8 @@ export const FONTS = {
 export const COLORS = {
     primary: '#5DB075',
     secondary: '#FFFFFF',
-    black: 'black'
+    black: 'black',
+    borderColor: "#03DAC6"
 }
 
 

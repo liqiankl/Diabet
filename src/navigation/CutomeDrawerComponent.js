@@ -14,7 +14,9 @@ const CustomDrawerContent = (props) => {
             <DrawerContentScrollView>
 
             </DrawerContentScrollView>
-            <Button title="Logout"></Button>
+            <Button title="Logout"
+                onPress={() => props.navigation.navigate('Auth')}
+            ></Button>
         </View>
     )
 
