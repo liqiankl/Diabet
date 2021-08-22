@@ -7,9 +7,31 @@ import { COLORS, FONTS, FONTSIZE } from '../util/common/index'
 import { Formik } from 'formik';
 import { signUpSchema } from '../util/schema/signupSchema'
 import DiabetError from '../components/DiabetError'
+import ApiServices from '../util/api/services'
 
 
 const SignupScreen = (props) => {
+    const handleFormSubmit = (values, { setSubmitting }) => {
+        let body = {
+            "mobile": {
+                "code": "+91",
+                "number": values.mobile
+            },
+            "name": values.name,
+            "email": values.email,
+            "role": "patient"
+        }
+        if (values.RefeeralCode) {
+            body.referralCode = values.RefeeralCode
+        }
+        ApiServices.createAccount(body)
+            .then(res => {
+                setSubmitting(false)
+            }).catch(err => {
+                setSubmitting(false)
+            })
+
+    }
     return (
         <Fragment >
             <View style={styles.container}>
@@ -36,9 +58,7 @@ const SignupScreen = (props) => {
                         mobile: '',
                         RefeeralCode: '',
                     }}
-                    onSubmit={(values) => console.log(
-                        values
-                    )}
+                    onSubmit={handleFormSubmit}
                 >
                     {({
                         handleChange,
@@ -49,7 +69,6 @@ const SignupScreen = (props) => {
                         touched,
                         handleBlur,
                     }) => {
-                        console.log(errors, touched, values)
                         return (
                             <Fragment>
                                 <View style={styles.SignUpMain}>
@@ -91,6 +110,7 @@ const SignupScreen = (props) => {
                                     <DiabetButton
                                         title="Sign Up"
                                         onPress={handleSubmit}
+                                        loading={isSubmitting}
                                     />
                                 </View>
                             </Fragment>
@@ -121,7 +141,6 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     SignUpBottom: {
-        alignItems: 'center',
         padding: 10
     },
     textStyle: {
