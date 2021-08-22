@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+const phoneRegExp = /^([6-9]{1}[0-9]{9})$/;
+
 export const signUpSchema = Yup.object().shape({
     name: Yup
         .string()
@@ -12,8 +14,11 @@ export const signUpSchema = Yup.object().shape({
         .required('Email Address is Required'),
 
     mobile: Yup
-        .number()
+        .string()
         .label('mobile')
+        .min(10)
+        .max(10)
+        .matches(phoneRegExp, 'Phone number is not valid')
         .required('Mobile Number is Required'),
 
     ReferralCode: Yup

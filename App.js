@@ -42,8 +42,8 @@ const App = () => {
         >
           <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.primary }} />
           <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            {/* <Navigator /> */}
-            <SignupScreen />
+            <Navigator />
+            {/* <SignupScreen /> */}
           </SafeAreaView>
         </PersistGate>
       </Provider>

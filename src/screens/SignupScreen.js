@@ -7,26 +7,46 @@ import { COLORS, FONTS, FONTSIZE } from '../util/common/index'
 import { Formik } from 'formik';
 import { signUpSchema } from '../util/schema/signupSchema'
 import DiabetError from '../components/DiabetError'
+import ApiServices from '../util/api/services'
 
 
 const SignupScreen = (props) => {
+    const handleFormSubmit = (values, { setSubmitting }) => {
+        let body = {
+            "mobile": {
+                "code": "+91",
+                "number": values.mobile
+            },
+            "name": values.name,
+            "email": values.email,
+            "role": "patient"
+        }
+        if (values.RefeeralCode) {
+            body.referralCode = values.RefeeralCode
+        }
+        ApiServices.createAccount(body)
+            .then(res => {
+                setSubmitting(false)
+            }).catch(err => {
+                setSubmitting(false)
+            })
+
+    }
     return (
         <Fragment >
             <View style={styles.container}>
                 <View style={styles.SignUpHeader}>
-                    <Entypo name="cross" size={30} color="#E8E8E8" />
+                    <Entypo
+                        name="cross"
+                        size={30}
+                        onPress={() => props.navigation.goBack()}
+                        color="#E8E8E8" />
                     <Text
-                        style={{
-                            fontFamily: FONTS.semibold,
-                            fontSize: FONTSIZE.h2
-                        }}
+                        style={styles.header}
                     >SignUp</Text>
                     <Text
-                        style={{
-                            color: COLORS.primary,
-                            fontFamily: FONTS.medium,
-                            fontSize: FONTSIZE.h5
-                        }}
+                        style={styles.textStyle}
+                        onPress={() => props.navigation.goBack()}
                     >Login</Text>
                 </View>
                 <View style={{ width: '40%' }} />
@@ -38,9 +58,7 @@ const SignupScreen = (props) => {
                         mobile: '',
                         RefeeralCode: '',
                     }}
-                    onSubmit={(values) => console.log(
-                        values
-                    )}
+                    onSubmit={handleFormSubmit}
                 >
                     {({
                         handleChange,
@@ -51,7 +69,6 @@ const SignupScreen = (props) => {
                         touched,
                         handleBlur,
                     }) => {
-                        console.log(errors, touched, values)
                         return (
                             <Fragment>
                                 <View style={styles.SignUpMain}>
@@ -61,37 +78,39 @@ const SignupScreen = (props) => {
                                         values={values.name}
                                         name="name"
                                         onChangeText={handleChange('name')}
+                                        error={touched.name && errors.name}
                                     />
-                                    <DiabetError errorValue={touched.name && errors.name} />
                                     <DiabetInput
                                         placeholder={"Email"}
                                         keyboardType="email-address"
                                         values={values.email}
                                         name="email"
+                                        autoCapitalize={'none'}
                                         onChangeText={handleChange('email')}
+                                        error={touched.email && errors.email}
                                     />
-                                    <DiabetError errorValue={touched.email && errors.email} />
                                     <DiabetInput
                                         placeholder={"Mobile number"}
                                         keyboardType="phone-pad"
                                         values={values.mobile}
                                         name="mobile"
                                         onChangeText={handleChange('mobile')}
+                                        error={touched.mobile && errors.mobile}
                                     />
-                                    <DiabetError errorValue={touched.mobile && errors.mobile} />
                                     <DiabetInput
                                         placeholder={"Referral Code (optional)"}
                                         keyboardType="numeric"
                                         values={values.RefeeralCode}
                                         name="RefeeralCode"
                                         onChangeText={handleChange('RefeeralCode')}
+                                        error={touched.RefeeralCode && errors.RefeeralCode}
                                     />
-                                    <DiabetError errorValue={touched.RefeeralCode && errors.RefeeralCode} />
                                 </View>
                                 <View style={styles.SignUpBottom}>
                                     <DiabetButton
                                         title="Sign Up"
                                         onPress={handleSubmit}
+                                        loading={isSubmitting}
                                     />
                                 </View>
                             </Fragment>
@@ -122,9 +141,17 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     SignUpBottom: {
-        alignItems: 'center',
         padding: 10
     },
+    textStyle: {
+        color: COLORS.primary,
+        fontFamily: FONTS.medium,
+        fontSize: FONTSIZE.h5
+    },
+    header: {
+        fontFamily: FONTS.semibold,
+        fontSize: FONTSIZE.h2
+    }
 })
 
 
