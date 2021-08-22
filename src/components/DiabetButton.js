@@ -20,7 +20,7 @@ const style = StyleSheet.create({
         height: 50,
         backgroundColor: COLORS.primary,
         justifyContent: 'center',
-        borderRadius: 8
+        borderRadius: 28
     }
 })
 

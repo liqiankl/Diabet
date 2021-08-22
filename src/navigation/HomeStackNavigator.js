@@ -19,7 +19,6 @@ const HomeStackNavigator = () => {
             <Stack.Screen
                 name="SubscriptionDetail"
                 component={SubscriptionDetail}
-                options={{ headerShown: false }}
             />
             <Stack.Screen
                 name="PaymentScreen"

@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, Button, SafeAreaView, ScrollView, StyleSheet, StatusBar, Image } from 'react-native';
+import { View, Text, Button, SafeAreaView, ScrollView, StyleSheet, StatusBar, Image , Alert} from 'react-native';
 import { FONTS, COLORS, RESPONSIVE, FONTSIZE } from '@util/common';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import DiabetButton from '../components/DiabetButton'
+
 const SubscritionDetail = () => {
+    const handleSubscribe = () =>
+    Alert.alert(
+      "Yay!",
+      "You are subscribed.",
+      [
+        {
+          text: "Done",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        }
+      ]
+    );
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}  showsVerticalScrollIndicator={false}>
-                <View style={{ flex: 1, }} >
+                <View style={styles.detail} >
                     {/* <Image
                         style={styles.logo}
                         source={{
@@ -57,8 +70,7 @@ const SubscritionDetail = () => {
                     </Card>
                     <DiabetButton
                                 title="Subscribe"
-                                // onPress={handleSubmit}
-                                style={styles.button}
+                               onPress={handleSubscribe}
                               
                             />
                 </View>
@@ -99,8 +111,7 @@ const styles = StyleSheet.create({
     logo: {
         borderRadius: 15,
     },
-    button: {
-        
-        borderRadius: 20
-    },
+
+    detail:{ flex: 1, marginBottom: 50 }
+   
 });
